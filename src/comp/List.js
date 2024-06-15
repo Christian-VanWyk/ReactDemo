@@ -17,7 +17,11 @@ export default function List({ listData, searchVal }) {
     }
     
     function handlePlayAudio(audioUrl) {
-        setActiveAudio(audioUrl);
+        if (activeAudio === audioUrl) {
+            setActiveAudio(null);
+        } else {
+            setActiveAudio(audioUrl);
+        }
     }
 
     return (
@@ -42,7 +46,7 @@ export default function List({ listData, searchVal }) {
                             </ul>
                             {item.Audio ? (
                                 <>
-                                    <Button variant="primary" onClick={() => handlePlayAudio(item.Audio)}>
+                                    <Button className="mb-2" variant="primary" onClick={() => handlePlayAudio(item.Audio)}>
                                         Play Sermon
                                     </Button>
                                     {activeAudio === item.Audio && (
@@ -52,7 +56,7 @@ export default function List({ listData, searchVal }) {
                                     )}
                                 </>
                             ) : (
-                                <Button disabled variant="primary" >
+                                <Button className="mb-2" disabled variant="primary" >
                                     No audio
                                 </Button>
                             )}
