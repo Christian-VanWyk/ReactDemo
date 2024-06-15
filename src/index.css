@@ -72,3 +72,9 @@ label {
   text-transform: uppercase;
   padding: calc((135px - 18px) / 2) 0;
 }
+
+.custom-dropdown-menu {
+  max-height: 350px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

@@ -21,7 +21,7 @@ export default function Search({ modelData, onValueChange, categories }) {
                             Categories
                         </Dropdown.Toggle>
                         <Dropdown.Menu className="custom-dropdown-menu">
-                            <Dropdown.Item active={newSearch === ""} key="default" onClick={() => submit('')}>All</Dropdown.Item>
+                            <Dropdown.Item className="pr-2" active={newSearch === ""} key="default" onClick={() => submit('')}>All</Dropdown.Item>
                             {categories.length && categories.map((item, index) => (
                                 <Dropdown.Item active={newSearch && newSearch === item} key={index} onClick={() => submit(item)}>{item}</Dropdown.Item>
                             ))}
