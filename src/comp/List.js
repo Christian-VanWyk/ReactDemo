@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Col';
 export default function List({ listData, searchVal }) {
 
     function filter (val = "") {
-        console.log('value ', val)
         if (Array.isArray(listData) && val.length) {
             return listData.filter(item => item.Category.toLowerCase().includes(val.toLowerCase()));
         } else {
@@ -29,13 +28,13 @@ export default function List({ listData, searchVal }) {
                         
                         <Card.Body>
                             <Card.Title>{item.Title}</Card.Title>
-                            <Card.Text>
+                            <Card.Body>
                                 <ul>
                                     <li>Category: {item.Category}</li>
                                     <li>Created: {item.CreateDate}</li>
                                     <li>ID: {item.Id}</li>
                                 </ul>
-                            </Card.Text>
+                            </Card.Body>
                             <audio className="w-100" controls>
                                 <source src={`https://arthurfrost.qflo.co.za/${item.Audio}`} type="audio/mpeg" />
                             </audio>

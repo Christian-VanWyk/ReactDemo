@@ -28,8 +28,6 @@ class Home extends React.Component {
                     modelData: data?.Body[0]?.About,
                     listingData: data?.Timeline
                 });
-                // This is just to run the console.log
-                // eslint-disable-next-line
                 eval(data?.Body[0]?.JS);
             });
     }
