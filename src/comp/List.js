@@ -2,15 +2,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Card from "react-bootstrap/Card";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import React, { useState } from 'react';
 
 export default function List({ listData, searchVal }) {
-
+    const [activeAudio, setActiveAudio] = useState(null);
+    
     function filter (val = "") {
         if (Array.isArray(listData) && val.length) {
             return listData.filter(item => item.Category.toLowerCase().includes(val.toLowerCase()));
         } else {
             return listData
         }
+    }
+    
+    function handlePlayAudio(audioUrl) {
+        setActiveAudio(audioUrl);
     }
 
     return (
@@ -21,23 +28,34 @@ export default function List({ listData, searchVal }) {
                         { item.Image.includes("Images") ? (
                             <Card.Img variant="top" src={`https://arthurfrost.qflo.co.za/${item.Image}`} />
                         ) : item.Image.length ? (
-                            <Card.Img variant="top" src={`https://arthurfrost.qflo.co.za/Images/${item.Image}`} />
+                            <Card.Img loading="lazy" variant="top" src={`https://arthurfrost.qflo.co.za/Images/${item.Image}`} />
                         ) : (
-                            <Card.Img className="h-25" variant="top" src={`https://walker-web.imgix.net/cms/Gradient_builder_2.jpg?auto=format,compress&w=1920&h=1200&fit=crop&dpr=1.5`} />
+                            <div className="placeholder">placeholder</div>
                         )}
                         
                         <Card.Body>
                             <Card.Title>{item.Title}</Card.Title>
-                            <Card.Body>
-                                <ul>
-                                    <li>Category: {item.Category}</li>
-                                    <li>Created: {item.CreateDate}</li>
-                                    <li>ID: {item.Id}</li>
-                                </ul>
-                            </Card.Body>
-                            <audio className="w-100" controls>
-                                <source src={`https://arthurfrost.qflo.co.za/${item.Audio}`} type="audio/mpeg" />
-                            </audio>
+                            <ul>
+                                <li>Category: {item.Category}</li>
+                                <li>Created: {item.CreateDate}</li>
+                                <li>ID: {item.Id}</li>
+                            </ul>
+                            {item.Audio ? (
+                                <>
+                                    <Button variant="primary" onClick={() => handlePlayAudio(item.Audio)}>
+                                        Play Sermon
+                                    </Button>
+                                    {activeAudio === item.Audio && (
+                                        <audio className="w-100" controls autoPlay>
+                                            <source src={`https://arthurfrost.qflo.co.za/${item.Audio}`} type="audio/mpeg" />
+                                        </audio>
+                                    )}
+                                </>
+                            ) : (
+                                <Button disabled variant="primary" >
+                                    No audio
+                                </Button>
+                            )}
                         </Card.Body>
                     </Card>
                 </Col>  

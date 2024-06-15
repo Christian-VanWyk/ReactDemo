@@ -11,6 +11,7 @@ class Home extends React.Component {
         modelData: '',
         listingData: {},
         searchVal: '',
+        categories: [],
     };
 
     handleValueChange = (value) => {
@@ -26,9 +27,16 @@ class Home extends React.Component {
                     bannerImage: `https://arthurfrost.qflo.co.za/${data?.Body[0]?.Background}`,
                     bannerImageOpacity: data?.Body[0]?.BackgroundOpacity,
                     modelData: data?.Body[0]?.About,
-                    listingData: data?.Timeline
+                    listingData: data?.Timeline,
                 });
-                eval(data?.Body[0]?.JS);
+
+                if (this.state.listingData.length) {
+                    this.state.listingData.forEach(item => {
+                        if (!this.state.categories.includes(item.Category)) {
+                            this.state.categories.push(item.Category);
+                        }
+                    });
+                }
             });
     }
 
@@ -40,7 +48,7 @@ class Home extends React.Component {
                         <div className="backgroundContainer">
                             <img className="pageBackground" style={{ opacity: this.state.bannerImageOpacity / 100 }} src={this.state.bannerImage} alt="here"/>
                         </div>
-                        <Search modelData={this.state.modelData} onValueChange={this.handleValueChange}/>
+                        <Search modelData={this.state.modelData} onValueChange={this.handleValueChange} categories={this.state.categories}/>
                         <List listData={this.state.listingData} searchVal={this.state.searchValue}/>
                     </div>
                 </div>
